@@ -1,28 +1,39 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeBirdsStatus, changeAnswerStatus } from '../../reducers/actions';
 import NextLevel from '../next-level/NextLevel';
-import BirdService from '../../services/bird-service';
 
 import './QuizField.scss';
 
 const QuizField = () => {
 
-  const questionNumber = useSelector(state => state.app.questionNumber)
-  const birdsService = new BirdService();
-  const birdsData = birdsService.getBirds(questionNumber);
+  const questionNumber = useSelector(state => state.app.questionNumber);
+  const hiddenBird = useSelector(state => state.app.hiddenBird);
+  const isRightAnswer = useSelector(state => state.app.isRightAnswer);
+  const birdsData = useSelector(state => state.birdsData)
+  const dispatch = useDispatch();
+
+  const showBirdInfo = (id) => {
+    if(!isRightAnswer) {
+      dispatch(changeBirdsStatus(id))
+    }
+    if( id === hiddenBird.id && !isRightAnswer) {
+      dispatch(changeAnswerStatus(true))
+    }
+  }
   
   const data = birdsData.map((item) => {
 
     let classes = "answer-marker";
-    // if(item.isAnswered) {
-    //   const addedClass = (item.id === hiddenRandomBird.id) ? ' right-answer' : ' error-answer';
-    //   classes += addedClass
-    // }
+    if(item.isAnswered) {
+      const addedClass = (item.id === hiddenBird.id) ? ' right-answer' : ' error-answer';
+      classes += addedClass
+    }
     
     return (
     <li 
       className="list-group-item bird-item" 
-      // onClick={ () => showBirdInfo(item.id)} 
+      onClick={ () => showBirdInfo(item.id)} 
       key={item.id}>
       <span className={ classes }></span>
         {item.name}

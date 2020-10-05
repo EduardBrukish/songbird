@@ -1,12 +1,21 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getNextQuestion } from '../../reducers/actions';
 
 import './NextLevel.scss'
 
 const NextLevel = () => {
 
   const isRightAnswer = useSelector(state => state.app.isRightAnswer);
+  const questionNumber = useSelector(state => state.app.questionNumber);
+  const dispatch = useDispatch();
+
+  const nextQuestion = () => {
+    dispatch(getNextQuestion(questionNumber + 1));
+  }
+
   let classes = 'btn';
+
   if(isRightAnswer) {
     classes += ' btn-success btn-next'
   }
@@ -15,7 +24,7 @@ const NextLevel = () => {
     <button 
       className={ classes } 
       disabled={ !isRightAnswer }
-      // onClick={ () => nextQuestion()}
+      onClick={ () => nextQuestion()}
       >Next level</button>
   )
 }

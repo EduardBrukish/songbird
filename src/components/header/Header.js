@@ -7,14 +7,14 @@ import './Header.scss'
 const Header = () => {
 
   const score = useSelector(state => state.app.score);
-  console.log(score)
+  const questionNumber = useSelector(state => state.app.questionNumber);
   const birdService = new BirdService();
   const categories = birdService.getCategories();
   const headerCategories = categories.map((item, index) => {
     let classes = "page-item  navigation__item";
-    // if( questionNumber === index ) {
-    //   classes += " active"
-    // }
+    if( questionNumber === index ) {
+      classes += " active"
+    }
     return ( 
       <li className={ classes } key={ item }>
         <a className="page-link" href="#">{item}</a>
