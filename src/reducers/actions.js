@@ -1,4 +1,10 @@
-import { UPDATE_BIRDS_STATUS, CHANGE_BIRDS_DATA, CHANGE_ANSWER_STATUS, NEXT_QUESTION, CHANGE_POINTS, CHANGE_SCORE } from './types';
+import { UPDATE_BIRDS_STATUS, 
+         CHANGE_BIRDS_DATA, 
+         CHANGE_ANSWER_STATUS, 
+         NEXT_QUESTION, 
+         CHANGE_POINTS, 
+         CHANGE_SCORE, 
+         UPDATE_CURREN_BIRD } from './types';
 
 export const updateBirdsStatus = (id) => {
   return {
@@ -39,5 +45,12 @@ export const changeScore = (score) => {
   return {
     type: CHANGE_SCORE,
     score
+  }
+}
+
+export const updateCurrentBird = (bird) => {
+  return {
+    type: UPDATE_CURREN_BIRD,
+    selectedBird: bird
   }
 }

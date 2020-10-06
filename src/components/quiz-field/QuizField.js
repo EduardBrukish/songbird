@@ -1,21 +1,32 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateBirdsStatus, changeAnswerStatus, changePoints, changeScore } from '../../reducers/actions';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+import { updateBirdsStatus, changeAnswerStatus, changePoints, changeScore, updateCurrentBird } from '../../reducers/actions';
 import NextLevel from '../next-level/NextLevel';
 
 import './QuizField.scss';
 
 const QuizField = () => {
 
-  const questionNumber = useSelector(state => state.app.questionNumber);
   const hiddenBird = useSelector(state => state.app.hiddenBird);
   const points = useSelector(state => state.app.points);
   const score = useSelector(state => state.app.score);
   const isRightAnswer = useSelector(state => state.app.isRightAnswer);
-  const birdsData = useSelector(state => state.birdsData)
+  const birdsData = useSelector(state => state.birdsData);
+  const currentBird = useSelector(state => state.currentBird.currentBird);
   const dispatch = useDispatch();
 
-  const showBirdInfo = (id) => {
+  const actionHandler = (bird) => {
+    showBirdInfo(bird);
+    storeHandler(bird.id);
+  }
+
+  const showBirdInfo = (bird) => {
+    dispatch(updateCurrentBird(bird));
+  }
+
+  const storeHandler = (id) => {
     if(!isRightAnswer) {
       dispatch(updateBirdsStatus(id));
       dispatch(changePoints(points - 1));
@@ -25,7 +36,7 @@ const QuizField = () => {
       dispatch(changeAnswerStatus(true));
     }
   }
-  
+
   const data = birdsData.map((item) => {
 
     let classes = "answer-marker";
@@ -37,13 +48,15 @@ const QuizField = () => {
     return (
     <li 
       className="list-group-item bird-item" 
-      onClick={ () => showBirdInfo(item.id)} 
+      onClick={ () => actionHandler(item)} 
       key={item.id}>
       <span className={ classes }></span>
         {item.name}
     </li>
     )
   })
+console.log(currentBird)
+  const birdCard = currentBird ? <BirdCard bird={currentBird} /> : <p className="start-description">Прослушайте аудио и выберите птицу из списка.</p>
 
   return(
     <div className="row">
@@ -54,12 +67,37 @@ const QuizField = () => {
     </div>
     <div className="col-md-6">
       <div className="card selected-bird">
-        {/* {birdCard} */}
+        {birdCard}
       </div>
     </div>
     <NextLevel />
   </div>
   )
 };
+
+
+const BirdCard = ({ bird }) => {
+  const { image, name, species, audio, description  } = bird;
+  return (
+    <React.Fragment>
+      <div className="row bird-card-main">
+        <img className="bird-image col-md-6" src={image} alt={`Картинка ${name}`}/>
+        <ul className="list-group list-group-flush col-md-6">
+          <li className="list-group-item"><span>{name}</span></li>
+          <li className="list-group-item"><span>{species}</span></li>
+        </ul>   
+      </div>  
+      <AudioPlayer
+          autoPlay={ false }
+          src={audio}
+          layout='horizontal-reverse'
+          showJumpControls={ false }
+          customAdditionalControls={ [] }
+          autoPlayAfterSrcChange={ false }
+        />
+      <p>{description}</p>
+    </React.Fragment>
+  )
+}
 
 export default QuizField;
