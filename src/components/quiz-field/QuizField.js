@@ -4,6 +4,8 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { updateBirdsStatus, changeAnswerStatus, changePoints, changeScore, updateCurrentBird } from '../../reducers/actions';
 import NextLevel from '../next-level/NextLevel';
+import success from '../../assets/audio/success.mp3';
+import fail from '../../assets/audio/fail.mp3';
 
 import './QuizField.scss';
 
@@ -18,8 +20,16 @@ const QuizField = () => {
   const dispatch = useDispatch();
 
   const actionHandler = (bird) => {
+    playSound(bird.id)
     showBirdInfo(bird);
     storeHandler(bird.id);
+  }
+
+  const playSound = (id) => {
+    if(isRightAnswer) return
+    const audioWay = (id === hiddenBird.id) ? success : fail;
+    const audio = new Audio(audioWay);
+    audio.play()
   }
 
   const showBirdInfo = (bird) => {
@@ -55,7 +65,7 @@ const QuizField = () => {
     </li>
     )
   }) 
-  
+
   const birdCard = currentBird ? <BirdCard bird={currentBird} /> : <p className="start-description">Прослушайте аудио и выберите птицу из списка.</p>
 
   return(
