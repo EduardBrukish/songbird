@@ -1,0 +1,35 @@
+.header__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .pagination {
+  margin-bottom: 25px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.header .pagination .page-link {
+  border-radius: 0;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.pade-item, .page-link {
+  background-color: #008966;
+}
+
+.navigation__item {
+  flex: auto;
+}
+
+.page-link {
+  text-align: center;
+}
+ 
+.logotype_green {
+  color:#008966;
+}
