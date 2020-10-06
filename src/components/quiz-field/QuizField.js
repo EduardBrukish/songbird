@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeBirdsStatus, changeAnswerStatus } from '../../reducers/actions';
+import { updateBirdsStatus, changeAnswerStatus, changePoints, changeScore } from '../../reducers/actions';
 import NextLevel from '../next-level/NextLevel';
 
 import './QuizField.scss';
@@ -9,16 +9,20 @@ const QuizField = () => {
 
   const questionNumber = useSelector(state => state.app.questionNumber);
   const hiddenBird = useSelector(state => state.app.hiddenBird);
+  const points = useSelector(state => state.app.points);
+  const score = useSelector(state => state.app.score);
   const isRightAnswer = useSelector(state => state.app.isRightAnswer);
   const birdsData = useSelector(state => state.birdsData)
   const dispatch = useDispatch();
 
   const showBirdInfo = (id) => {
     if(!isRightAnswer) {
-      dispatch(changeBirdsStatus(id))
+      dispatch(updateBirdsStatus(id));
+      dispatch(changePoints(points - 1));
     }
     if( id === hiddenBird.id && !isRightAnswer) {
-      dispatch(changeAnswerStatus(true))
+      dispatch(changeScore(score + points));
+      dispatch(changeAnswerStatus(true));
     }
   }
   

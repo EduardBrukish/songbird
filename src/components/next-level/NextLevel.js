@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getNextQuestion } from '../../reducers/actions';
+import { getNextQuestion, changeBirdsData } from '../../reducers/actions';
 
 import './NextLevel.scss'
 
@@ -11,6 +11,7 @@ const NextLevel = () => {
   const dispatch = useDispatch();
 
   const nextQuestion = () => {
+    dispatch(changeBirdsData(questionNumber + 1));
     dispatch(getNextQuestion(questionNumber + 1));
   }
 

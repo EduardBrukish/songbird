@@ -2,7 +2,7 @@ const birdsData = {
   'categories': [
               'разминка', 
               'воробьиные', 
-              'лестные птицы', 
+              'лесные птицы', 
               'певчие птицы', 
               'хищные птицы', 
               'морские птицы'
@@ -108,7 +108,7 @@ const birdsData = {
       audio: 'https://www.xeno-canto.org/sounds/uploaded/TFOGOENSTQ/XC501517-191008_1590%201300.%20Eichelh%C3%A4her%20D%2C%20NW%2C%20LEV.%20Stephan%20Risch.mp3'
     }
     ],
-  'лестные птицы': [
+  'лесные птицы': [
     {
       id: 1,
       name: 'Зяблик',

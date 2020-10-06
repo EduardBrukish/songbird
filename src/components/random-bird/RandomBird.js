@@ -10,7 +10,7 @@ const RandomBird = () => {
 
   const hiddenBird = useSelector(state => state.app.hiddenBird);
   const isRightAnswer = useSelector(state => state.app.isRightAnswer);
-
+  
   const birdName = isRightAnswer ? hiddenBird.name : '********';
   const birdImage = isRightAnswer ? hiddenBird.image : birdIcon;
 
