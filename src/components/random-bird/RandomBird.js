@@ -13,7 +13,7 @@ const RandomBird = () => {
   
   const birdName = isRightAnswer ? hiddenBird.name : '********';
   const birdImage = isRightAnswer ? hiddenBird.image : birdIcon;
-
+console.log(`hidden bird: ${hiddenBird.name}`)
   return(
     <div className="random-bird card d-flex">
         <img className="bird-image" 

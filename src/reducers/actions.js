@@ -4,7 +4,8 @@ import { UPDATE_BIRDS_STATUS,
          NEXT_QUESTION, 
          CHANGE_POINTS, 
          CHANGE_SCORE, 
-         UPDATE_CURREN_BIRD } from './types';
+         UPDATE_CURREN_BIRD,
+         START_AGAIN } from './types';
 
 export const updateBirdsStatus = (id) => {
   return {
@@ -52,5 +53,11 @@ export const updateCurrentBird = (bird) => {
   return {
     type: UPDATE_CURREN_BIRD,
     selectedBird: bird
+  }
+}
+
+export const startAgain = () => {
+  return {
+    type: START_AGAIN
   }
 }

@@ -1,4 +1,4 @@
-import { CHANGE_ANSWER_STATUS, NEXT_QUESTION, CHANGE_POINTS, CHANGE_SCORE } from './types';
+import { CHANGE_ANSWER_STATUS, NEXT_QUESTION, CHANGE_POINTS, CHANGE_SCORE, START_AGAIN } from './types';
 import BirdService from '../services/bird-service';
 
 const birdService = new BirdService();
@@ -21,6 +21,8 @@ export const appReducer = (state = initialState, action) => {
       return Object.assign({...state},{ points: action.points });
     case CHANGE_SCORE: 
       return Object.assign({...state},{ score: action.score });
+    case START_AGAIN: 
+      return initialState;
     default:
       return state;
   }

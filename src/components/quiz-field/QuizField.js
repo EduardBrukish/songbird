@@ -54,8 +54,8 @@ const QuizField = () => {
         {item.name}
     </li>
     )
-  })
-console.log(currentBird)
+  }) 
+  
   const birdCard = currentBird ? <BirdCard bird={currentBird} /> : <p className="start-description">Прослушайте аудио и выберите птицу из списка.</p>
 
   return(
